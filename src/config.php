@@ -27,3 +27,11 @@
  */
 
  spl_autoload_register('autoloader');
+
+ /**
+ * Create json repository object. 
+ * @param json file 
+ * Using repository interface to enforce contract. 
+ */
+
+ $repo = new jsonRepository(__DIR__ . '/database.json');
