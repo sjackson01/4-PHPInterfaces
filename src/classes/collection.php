@@ -15,7 +15,7 @@ class Collection implements Iterator, Countable
  * @param Int
  * @param Int   
  */
-    public function construct(RepositoryInterface $repo, $id = null,
+    public function __construct(RepositoryInterface $repo, $id = null,
     $field = 'id'){
         $this->repo = $repo;
         if(!empty($id)){
