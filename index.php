@@ -2,20 +2,40 @@
 //Autoload all classes
 require_once "src/config.php";
 
-//Test 2 new collection object 
-//This will pull all the posts
-$content = new Collection($repo);
+//Check for query string link to single item page
+if(isset($_GET['id'])){
+    $content = new Collection(
+        $repo,
+        filter_input(
+            INPUT_GET, 
+            'id ', 
+            FILTER_SANITIZE_NUMBER_INT) 
+    );
+}
 
-$title = "My Website";
+
+
+//Validate that we have a single item we want to use 
+if(isset($content) && $content->count() == 1 && $content->current()->status == "published")
+        {
+            $title = $content->current()->title;
+        }else{
+        //Return all the content and set the title to treehouse blog
+        $content = new Collection($repo);
+        $title = "Treehouse Blog";    
+}
 
 require 'views/header.php';
 
-//Test retrieve all posts
-//var_dump($repo->all('posts'));
-
-//Display item description and title 
-foreach($content as $item){
-    include 'views/list.php';
+//Check to see which view we should show 
+if($content->count() == 1){
+    //Single item
+    include 'views/single.php';
+    }else{
+    //Multiple items 
+    foreach($content as $item){
+        include 'views/list.php';
+        }
 }
-
+  
 require 'views/footer.php';
