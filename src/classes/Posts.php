@@ -28,7 +28,7 @@ class Posts extends Collection implements TrackableInterface, ShareableInterface
     */
     public function getAuthor()
     {
-        $user = $this->repo-find('users', $this->current()->author)[0];
+        $user = $this->repo->find('users', $this->current()->author)[0];
         if(empty($user->name)){
             return 'Unknown';
         }
