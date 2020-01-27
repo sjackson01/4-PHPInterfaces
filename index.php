@@ -13,9 +13,9 @@ require 'views/header.php';
 //Test retrieve all posts
 //var_dump($repo->all('posts'));
 
-//Test 2 Loop through each post and return a title
+//Display item description and title 
 foreach($content as $item){
-    echo $item->title;
+    include 'views/list.php';
 }
 
 require 'views/footer.php';

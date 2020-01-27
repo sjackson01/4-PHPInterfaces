@@ -6,7 +6,7 @@
 
  //Must implment the methods for Iterator and Countable
  //Errors will be thrown if methods are not implemented 
-class Collection implements Iterator, Countable 
+class Collection implements CollectionInterface
 {
     protected $repo;
     public $collection;
@@ -27,6 +27,27 @@ class Collection implements Iterator, Countable
         }
     }
 
+    /**
+    * Display current item details. 
+    */
+
+    public function shortDescription()
+    {
+        if(strlen($this->current()->details) < 510){
+            return strip_tags($this->current()->details);
+        }
+
+        return strip_tags(
+            substr(
+                $this->current()->details, 
+                0, 
+                strpos(
+                    // Interesting behavior The needle 'param 2' changes the content length
+                    $this->current()->details,
+                     ' ', 500)
+                     ) . '...');
+    }
+
    /**
     * Current is a built in method implemented by
     * the iterator interface that uses a pointer 
@@ -34,9 +55,6 @@ class Collection implements Iterator, Countable
     * within an array. 
     */
     public function current(){
-        //Test 2 use magic constant __METHOD__ 
-        //Returns the current pointer of the collection array 
-        var_dump(__METHOD__);
         return current($this->collection);
     }
     
@@ -46,7 +64,6 @@ class Collection implements Iterator, Countable
     * of the item the pointer is on. 
     */
     public function key(){
-        var_dump(__METHOD__);
         return key($this->collection);
     }
 
@@ -57,7 +74,7 @@ class Collection implements Iterator, Countable
     * is pointing to. 
     */
     public function next(){
-        var_dump(__METHOD__);
+
         return next($this->collection);
     }
 
@@ -68,7 +85,6 @@ class Collection implements Iterator, Countable
     * to the first items. 
     */
     public function rewind(){
-        var_dump(__METHOD__);
         return reset($this->collection);
     }
   
@@ -78,7 +94,6 @@ class Collection implements Iterator, Countable
     * keyword which will verify the current key is valid.
     */
     public function valid(){
-        var_dump(__METHOD__);
         return key($this->collection) !== null;
     }
 
@@ -88,7 +103,6 @@ class Collection implements Iterator, Countable
     * number of items within our array.
     */
     public function count(){
-        var_dump(__METHOD__);
         return count($this->collection);
     }
 }
