@@ -4,7 +4,7 @@ require_once "src/config.php";
 
 //Check for query string link to single item page
 if(isset($_GET['id'])){
-    $content = new Collection(
+    $content = new Posts(
         $repo,
         filter_input(
             INPUT_GET, 
@@ -13,15 +13,13 @@ if(isset($_GET['id'])){
     );
 }
 
-
-
 //Validate that we have a single item we want to use 
 if(isset($content) && $content->count() == 1 && $content->current()->status == "published")
         {
             $title = $content->current()->title;
         }else{
         //Return all the content and set the title to treehouse blog
-        $content = new Collection($repo);
+        $content = new Posts($repo);
         $title = "Treehouse Blog";    
 }
 
