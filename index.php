@@ -8,7 +8,7 @@ if(isset($_GET['id'])){
         $repo,
         filter_input(
             INPUT_GET, 
-            'id ', 
+            'id', 
             FILTER_SANITIZE_NUMBER_INT) 
     );
 }
