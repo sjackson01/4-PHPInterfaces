@@ -6,7 +6,7 @@
 
  //Must implment the methods for Iterator and Countable
  //Errors will be thrown if methods are not implemented 
-class Collection implements CollectionInterface
+abstract class Collection implements CollectionInterface
 {
     protected $repo, $entity;
     public $collection;
@@ -20,6 +20,7 @@ class Collection implements CollectionInterface
     public function __construct(RepositoryInterface $repo, $id = null,
     $field = 'id'){
         $this->repo = $repo;
+        $this->setEntity();
         if(!empty($id)){
             $this->collection = $this->repo->find($this->entity, $id, $field);
         }else{
@@ -105,4 +106,10 @@ class Collection implements CollectionInterface
     public function count(){
         return count($this->collection);
     }
+
+    /**
+    * Abstract class to set entity.
+    */
+
+    abstract protected function setEntity();
 }

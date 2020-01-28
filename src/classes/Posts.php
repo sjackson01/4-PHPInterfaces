@@ -14,11 +14,10 @@ class Posts extends Collection implements TrackableInterface, ShareableInterface
     * @param Int
     * @param Int   
     */
-    public function __construct(RepositoryInterface $repo, $id = null,
-    $field = 'id'){
-            $this->entity = 'posts';
-            parent::__construct($repo,$id,$field);
+    public function setEntity(){
+        $this->entity = 'posts';
     }
+    
 
    /**
     * Find user that matches the author id
