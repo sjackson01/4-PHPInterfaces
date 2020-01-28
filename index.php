@@ -14,13 +14,10 @@ if(isset($_GET['id'])){
 }
 
 //Validate that we have a single item we want to use 
-if(isset($content) && $content->count() == 1 && $content->current()->status == "published")
+if(!isset($content) || $content->count() != 1 || $content->current()->status != "published")
         {
-            $title = $content->current()->title;
-        }else{
         //Return all the content and set the title to treehouse blog
-        $content = new Posts($repo);
-        $title = "Treehouse Blog";    
+        $content = new Posts($repo); 
 }
 
 require 'views/header.php';
