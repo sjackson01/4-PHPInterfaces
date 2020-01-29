@@ -14,11 +14,24 @@ class Posts extends Collection implements TrackableInterface, ShareableInterface
     * @param Int
     * @param Int   
     */
-    public function __construct(RepositoryInterface $repo, $id = null,
-    $field = 'id'){
-            $this->entity = 'posts';
-            parent::__construct($repo,$id,$field);
+    public function setEntity(){
+        $this->entity = 'posts';
     }
+
+   /**
+    * Return the title if only 1 post.
+    * Otherwise return 'Latest Post' as title.
+    */
+
+    public function getTitle()
+    {
+        if($this->count() === 1){
+            return $this->current()->title;
+        }
+
+        return 'Latest Posts';
+    }
+    
 
    /**
     * Find user that matches the author id
