@@ -15,4 +15,9 @@ class Pages extends Collection
         return $this->current()->title;
     }
 
+    public function featuredImage()
+    {
+        return $this->current()->image;
+    }
+
 }
