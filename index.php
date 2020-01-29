@@ -1,36 +1,15 @@
 <?php
-//Autoload all classes
-require_once "src/config.php";
+require 'src/config.php';
 
-//Check for query string link to single item page
-if(isset($_GET['id'])){
-    $content = new Posts(
-        $repo,
-        filter_input(
-            INPUT_GET, 
-            'id', 
-            FILTER_SANITIZE_NUMBER_INT) 
-    );
+//Change slug variable based on the page we wish to display
+$slug = 'home';
+
+if(isset($_GET['slug'])){
+    $slug = filter_input(INPUT_GET, 'slug', FILTER_SANITIZE_STRING);
 }
 
-//Validate that we have a single item we want to use 
-if(!isset($content) || $content->count() != 1 || $content->current()->status != "published")
-        {
-        //Return all the content and set the title to treehouse blog
-        $content = new Posts($repo); 
-}
+$content = new Pages($repo,$slug, 'slug');
 
 require 'views/header.php';
-
-//Check to see which view we should show 
-if($content->count() == 1){
-    //Single item
-    include 'views/single.php';
-    }else{
-    //Multiple items 
-    foreach($content as $item){
-        include 'views/list.php';
-        }
-}
-  
+require 'views/single.php';
 require 'views/footer.php';
